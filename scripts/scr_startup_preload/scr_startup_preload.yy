@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_startup_preload",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_startup_preload",
+  "parent":{
+    "name":"Modded",
+    "path":"folders/Scripts/Modded.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

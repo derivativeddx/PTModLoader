@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"instance_is_pausable",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"instance_is_pausable",
+  "parent":{
+    "name":"Modded",
+    "path":"folders/Scripts/Modded.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

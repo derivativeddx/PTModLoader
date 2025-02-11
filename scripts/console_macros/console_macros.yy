@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"console_macros",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"console_macros",
+  "parent":{
+    "name":"General",
+    "path":"folders/Scripts/General.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

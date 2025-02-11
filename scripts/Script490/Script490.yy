@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Script490",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Script490",
+  "parent":{
+    "name":"Modded",
+    "path":"folders/Scripts/Modded.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

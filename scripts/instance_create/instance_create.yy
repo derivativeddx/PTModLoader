@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"instance_create",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"instance_create",
+  "parent":{
+    "name":"Object",
+    "path":"folders/Scripts/GMS1/Object.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

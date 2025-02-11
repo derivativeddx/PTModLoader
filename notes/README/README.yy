@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"",
+  "%Name":"README",
+  "name":"README",
+  "parent":{
+    "name":"BNVIB",
+    "path":"folders/Scripts/TDP/BNVIB.yy",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}
