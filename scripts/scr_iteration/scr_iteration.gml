@@ -4,3 +4,6 @@
 #macro PATCHED_EVENT_ORDER true /* Necessary for GM2023+ */
 #macro PATCHED_SECRET_TILES true /* TODO!!! Un-hardcodes secret tiles */
 #macro BASE_TRACES false
+
+// TODO fix texture group's parents after next gamemaker beta.
+// this one broke them.

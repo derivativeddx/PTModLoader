@@ -1,11 +1,11 @@
-#macro ensure_order if PATCHED_EVENT_ORDER\
-if !instance_exists(other) or other.object_index != obj_eventorder \
-or (self[$ "_order_buffer"] != undefined) \
+#macro ensure_order if (PATCHED_EVENT_ORDER) { \
+if ((!instance_exists(other) or other.object_index != obj_eventorder) \
+or (self[$ "_order_buffer"] != undefined)) \
 { \
 	if self[$ "_order_buffer"] != undefined then self[$ "_order_buffer"]--; \
 	if self[$ "_order_buffer"] == 0 then self[$ "_order_buffer"] = undefined; \
 	exit; \
-}
+} }
 
 if !PATCHED_EVENT_ORDER
 {

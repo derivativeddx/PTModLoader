@@ -3,6 +3,7 @@
 
 function instance_create_depth_hook(x, y, depth, obj, var_struct = {})
 {
-	if PATCHED_EVENT_ORDER var_struct._order_buffer = 1;
+	if PATCHED_EVENT_ORDER && array_contains(obj_eventorder.order, self[$ "object_index"])
+		var_struct._order_buffer = 1;
 	return instance_create_depth_base(x, y, depth, obj, var_struct);
 }
