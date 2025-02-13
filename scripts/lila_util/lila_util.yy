@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"lila_util",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lila_util",
+  "parent":{
+    "name":"Modded",
+    "path":"folders/Scripts/Modded.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

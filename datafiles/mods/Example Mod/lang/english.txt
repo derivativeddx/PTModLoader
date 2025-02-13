@@ -1,0 +1,9 @@
+# -----------------------------------
+# These will add entries to the "en" language
+# But you can also replace existing entries
+# Which is useful for character reskin mods
+# -----------------------------------
+lang = "en"
+
+test_string = "Example mod enabled. Enjoy your new Peppino."
+test_string2 = "Example mod disabled. \"Wilted Peppino\" is now dead."

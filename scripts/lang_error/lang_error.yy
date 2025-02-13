@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"lang_error",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lang_error",
+  "parent":{
+    "name":"Modded",
+    "path":"folders/Scripts/Modded.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

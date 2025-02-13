@@ -25,7 +25,8 @@ for (var i = 0; i < array_length(bg_alpha); i++)
 bg_x -= 1;
 bg_y -= 1;
 
-if instance_exists(obj_keyconfig) || instance_exists(obj_screenconfirm) || instance_exists(obj_langselect)
+if instance_exists(obj_keyconfig) or instance_exists(obj_screenconfirm) or instance_exists(obj_langselect)
+or instance_exists(obj_modlist)
 	exit;
 
 scr_menu_getinput();

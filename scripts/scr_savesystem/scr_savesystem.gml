@@ -1,4 +1,5 @@
 #macro SAVE_ROOT concat(environment_get_variable("APPDATA"), "\\PizzaTower_GM2\\")
+#macro EXE_ROOT working_directory
 
 function get_buffer_group_name()
 {

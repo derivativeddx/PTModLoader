@@ -37,6 +37,7 @@ scr_pauseicon_add(spr_pauseicons, 4);
 scr_pauseicon_add(spr_pauseicons, 5);
 scr_pauseicon_add(spr_pauseicons, 6);
 scr_pauseicon_add(spr_pauseicons, 7, 8, 8);
+scr_pauseicon_add(spr_pauseicon_mods, 0, 0, 4);
 
 #region categories
 
@@ -61,6 +62,18 @@ add_option_press(categories, 3, "option_controls", function()
 	*/
 	menu_goto(menu_pages.controls);
 });
+if scr_modding_is_standalone()
+{
+	
+}
+else
+{
+	add_option_press(categories, 4, "option_mods", function()
+	{
+		obj_option.key_jump = false;
+		instance_create_unique(0, 0, obj_modlist);
+	});
+}
 array_push(menus, categories);
 
 #endregion

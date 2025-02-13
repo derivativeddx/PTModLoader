@@ -1,3 +1,7 @@
+#macro lstr lang_get_value_newline
+#macro lspr lang_get_sprite
+#macro lfnt lang_get_font
+
 function scr_get_languages()
 {
 	global.lang_map = ds_map_create();
@@ -113,17 +117,37 @@ function scr_lang_get_noise_credits()
 
 function lang_get_value_raw(lang, entry)
 {
-	var n = ds_map_find_value(ds_map_find_value(global.lang_map, lang), entry);
-	if is_undefined(n)
-		n = ds_map_find_value(ds_map_find_value(global.lang_map, "en"), entry);
-	if is_undefined(n)
+	var result = undefined;
+	
+	for(var i = 0, n = array_length(global.mods); i < n; ++i)
 	{
-		n = "";
-		instance_create_unique(0, 0, obj_langerror);
-		with obj_langerror
-			text = concat("Error: Could not find lang value \"", entry, "\"\nPlease restore your english.txt file");
+		var this_mod = global.mods[i];
+		if !this_mod.enabled
+			continue;
+		
+		if is_undefined(result) && !is_undefined(this_mod.lang_map[? lang])
+			result = this_mod.lang_map[? lang][? entry];
+		
+		if is_undefined(result) && !is_undefined(this_mod.lang_map[? "en"])
+			result = this_mod.lang_map[? "en"][? entry];
+		
+		if !is_undefined(result)
+			return result;
 	}
-	return n;
+	
+	if is_undefined(result)
+		result = ds_map_find_value(ds_map_find_value(global.lang_map, lang), entry);
+	
+	if is_undefined(result)
+		result = ds_map_find_value(ds_map_find_value(global.lang_map, "en"), entry);
+		
+	if is_undefined(result)
+	{
+		result = "";
+		lang_error(concat("Error: Could not find lang value \"", entry, "\"\n", global.processing_mod != noone ? $"Caused by {global.processing_mod.name}" : "Please restore your english.txt file"));
+	}
+	
+	return result;
 }
 
 function lang_get_value(entry)
@@ -152,7 +176,7 @@ function lang_parse(langstring) // langstring being the entire file in a single 
 	return lang;
 }
 
-enum lexer
+enum lang_tokens
 {
 	set,
 	name,
@@ -190,7 +214,7 @@ function lang_lexer(list, str)
 				break;
 			
 			case ord("="):
-				ds_list_add(list, [lexer.set, start]);
+				ds_list_add(list, [lang_tokens.set, start]);
 				break;
 			
 			case ord("\""):
@@ -206,8 +230,9 @@ function lang_lexer(list, str)
 				if pos <= len
 				{
 					var val = string_copy(str, start + 1, pos - start - 1);
-					string_replace_all(val, "\\\"", "\"");
-					ds_list_add(list, [lexer.value, start, val]);
+					if FIX_LANG_QUOTES
+						val = string_replace_all(val, "\\\"", "\"");
+					ds_list_add(list, [lang_tokens.value, start, val]);
 					pos += 1;
 				}
 				else
@@ -231,22 +256,22 @@ function lang_lexer(list, str)
 					switch name
 					{
 						case "false":
-							ds_list_add(list, [lexer.keyword, start, false]);
+							ds_list_add(list, [lang_tokens.keyword, start, false]);
 							break;
 						case "noone":
-							ds_list_add(list, [lexer.keyword, start, noone]);
+							ds_list_add(list, [lang_tokens.keyword, start, noone]);
 							break
 						case "true":
-							ds_list_add(list, [lexer.keyword, start, true]);
+							ds_list_add(list, [lang_tokens.keyword, start, true]);
 							break;
 						default:
-							ds_list_add(list, [lexer.name, start, name]);
+							ds_list_add(list, [lang_tokens.name, start, name]);
 					}
 				}
 				break;
 		}
 	}
-	ds_list_add(list, [lexer.eof, len + 1]);
+	ds_list_add(list, [lang_tokens.eof, len + 1]);
 }
 
 function lang_get_identifier(keycode, allow_numbers)
@@ -268,7 +293,7 @@ function lang_exec(token_list) // Man.
 		var q = ds_list_find_value(token_list, pos++);
 		switch q[0]
 		{
-			case lexer.set:
+			case lang_tokens.set:
 				var ident = token_list[| pos - 2][2];
 				var val = token_list[| pos++][2];
 				ds_map_set(map, ident, val);

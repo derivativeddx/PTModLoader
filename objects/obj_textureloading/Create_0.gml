@@ -25,4 +25,11 @@ lang_tex = lang_tex_max;
 file_find_close();
 lang_init = false;
 
+// mods
+scr_modding_cleanup();
+mods_to_load = scr_modding_enumerate_mods();
+mods_count = array_length(mods_to_load);
+
+comment = "Loading languages";
+
 alarm[0] = 70;

@@ -7,7 +7,9 @@ if room != Mainmenu
 	with obj_keyconfig
 		event_perform(ev_draw, ev_gui);
 }
+
 if instance_exists(obj_keyconfig) || instance_exists(obj_screenconfirm) || instance_exists(obj_langselect)
+or instance_exists(obj_modlist)
 	exit;
 
 tdp_draw_set_font(lang_get_font("bigfont"));

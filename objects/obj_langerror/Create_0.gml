@@ -1,2 +1,2 @@
-text = "Error"
-depth = -999
+text = []; // "Error"
+depth = -999;

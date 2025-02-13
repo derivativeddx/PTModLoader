@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_load_file",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_load_file",
+  "parent":{
+    "name":"Modded",
+    "path":"folders/Scripts/Modded.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
