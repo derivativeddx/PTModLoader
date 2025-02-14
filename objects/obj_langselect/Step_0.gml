@@ -9,7 +9,7 @@ if startbuffer > 0
     startbuffer--;
 
 var move = key_left2 + key_right2;
-if (move != 0)
+if move != 0
 {
     select += move;
     if select > array_length(lang) - 1

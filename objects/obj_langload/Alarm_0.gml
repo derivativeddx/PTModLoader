@@ -7,7 +7,7 @@ if !scr_lang_load_update()
 }
 else
 {
-    alarm[0] = 1
+    alarm[0] = 1;
     if !lang_init
     {
         lang_init = true;

@@ -1,6 +1,7 @@
 draw_rectangle_color(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 0, false);
 for (var i = 0; i < array_length(bg_alpha); i++)
-	draw_sprite_tiled_ext(spr_optionsBG, i, bg_x, bg_y, 1, 1, c_white, bg_alpha[i]);
+	draw_sprite_tiled_ext(bg_sprite, i, bg_x, bg_y, 1, 1, c_white, bg_alpha[i]);
+draw_sprite_tiled_ext(spr_optionsBG_mods, 0, bg_x, bg_y, 1, 1, c_white, base_mod_list_bg_alpha);
 
 if room != Mainmenu
 {

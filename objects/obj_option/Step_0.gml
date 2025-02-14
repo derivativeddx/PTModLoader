@@ -14,6 +14,14 @@ else if m.menu_id == menu_pages.audio
 else if m.menu_id == menu_pages.game
 	j = 3;
 
+if instance_exists(obj_modlist)
+{
+	j = -1;
+	base_mod_list_bg_alpha = Approach(base_mod_list_bg_alpha, 1, 0.1);
+}
+else
+	base_mod_list_bg_alpha = Approach(base_mod_list_bg_alpha, 0, 0.05);
+
 for (var i = 0; i < array_length(bg_alpha); i++)
 {
 	if i == j
@@ -26,8 +34,12 @@ bg_x -= 1;
 bg_y -= 1;
 
 if instance_exists(obj_keyconfig) or instance_exists(obj_screenconfirm) or instance_exists(obj_langselect)
-or instance_exists(obj_modlist)
 	exit;
+if instance_exists(obj_modlist)
+{
+	scr_pauseicons_update(-1);
+	exit;
+}
 
 scr_menu_getinput();
 if backbuffer > 0
@@ -123,7 +135,7 @@ for (i = 0; i < array_length(m.options); i++)
 		{
 			if b.moving
 			{
-				if (!fmod_event_instance_is_playing(b.sound))
+				if !fmod_event_instance_is_playing(b.sound)
 					fmod_event_instance_play(b.sound);
 			}
 			else

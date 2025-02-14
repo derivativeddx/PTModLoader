@@ -1,12 +1,8 @@
 function scr_lang_load_init()
 {
-	var lang = ds_map_find_value(global.lang_available, global.option_lang);
-	if is_undefined(lang)
-	{
+	if is_undefined(global.lang_available[? global.option_lang])
 		global.option_lang = "en";
-		lang = ds_map_find_value(global.lang_available, global.option_lang);
-	}
-	ds_queue_enqueue(global.lang_to_load, lang.file);
+	ds_queue_enqueue(global.lang_to_load, global.option_lang);
 	ds_list_clear(global.lang_textures_to_load);
 	global.lang_tex_max = 0;
 }
@@ -51,7 +47,7 @@ function scr_lang_load_update()
 				for (var j = 0; j < array_length(sprite.frames); j++)
 				{
 					var frame = sprite.frames[j];
-					if !ds_list_find_index(textures_to_offload, frame.texture)
+					if ds_list_find_index(textures_to_offload, frame.texture) == -1
 						ds_list_add(textures_to_offload, frame.texture);
 				}
 				key = ds_map_find_next(sprites, key);
@@ -69,7 +65,11 @@ function scr_lang_load_update()
 	}
 	
 	if ds_queue_size(global.lang_to_load) > 0
-		lang_parse_file(ds_queue_dequeue(global.lang_to_load));
+	{
+		var key = ds_queue_dequeue(global.lang_to_load);
+		if lang_get_value_raw(key, "custom_graphics")
+			lang_sprites_parse(key);
+	}
 	else if ds_list_size(global.lang_textures_to_load) > 0
 	{
 		lang_tex--;

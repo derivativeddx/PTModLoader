@@ -4,36 +4,38 @@
 
 function scr_get_languages()
 {
-	global.lang_map = ds_map_create();
-	global.lang_sprite_map = ds_map_create();
-	global.lang_texture_map = ds_map_create();
-	global.lang_to_load = ds_queue_create();
-	global.lang_available = ds_map_create();
-	global.lang_loaded = ds_list_create();
+	global.lang_map = ds_map_create(); // { en: { entry: "Text", ... }, ... }
+	global.lang_sprite_map = ds_map_create(); // { en: { spr_reference: { name, frames }, ... }, ... }
+	global.lang_texture_map = ds_map_create(); // { en1.png: spr_reference, ... }
+	global.lang_to_load = ds_queue_create(); // [ "en", ... ]
+	global.lang_textures_to_load = ds_list_create(); // [ "en1.png", ... ]
+	global.lang_available = ds_map_create(); // { en: { name: "ENGLISH" }, ... }
+	global.lang_loaded = ds_list_create(); // [ "en", ... ]
 	global.lang_tex_max = 0;
 	
 	if !variable_global_exists("lang")
 		global.lang = "en";
 	
+	// read them
 	var arr = [];
-	for (var def = file_find_first("lang/*.def", 0); def != ""; def = file_find_next())
-		array_push(arr, def);
+	for (var def = file_find_first("lang/*.txt", 0); def != ""; def = file_find_next())
+		lang_parse_file(def);
 	file_find_close();
 	
-	for (var i = 0; i < array_length(arr); i++)
-    {
-	    var str = scr_lang_get_file_arr("lang/" + arr[i])
-	    global.lang_available[? str[0]] = {
-	        name: str[1],
-	        file: str[2]
-	    };
+	// available languages
+	var key = ds_map_find_first(global.lang_map);
+	while !is_undefined(key)
+	{
+		global.lang_available[? key] =
+		{
+		    name: global.lang_map[? key][? "display_name"] ?? string_upper(key)
+		};
+		key = ds_map_find_next(global.lang_map, key);
 	}
 	
 	global.credits_arr = scr_lang_get_credits();
 	global.noisecredits_arr = scr_lang_get_noise_credits();
-	global.lang_textures_to_load = ds_list_create();
 	ds_list_add(global.lang_loaded, "en");
-	lang_parse_file("english.txt");
 	
 	global.font_map = ds_map_create();
 	ds_map_set(global.font_map, "bigfont_en", global.bigfont);
@@ -69,8 +71,12 @@ function lang_parse_file(filename)
 {
 	var str = lang_read_file(filename);
 	var key = lang_parse(str);
-	if lang_get_value_raw(key, "custom_graphics")
-		lang_sprites_parse(key);
+	return key;
+	
+	//if lang_get_value_raw(key, "custom_graphics")
+	//	lang_sprites_parse(key);
+	
+	// Moved to scr_lang_load_update
 }
 
 function scr_lang_get_file_arr(filename)
@@ -88,12 +94,12 @@ function scr_lang_get_file_arr(filename)
 
 function scr_lang_get_credits()
 {
-	return scr_lang_get_file_arr("credits.txt");
+	return scr_lang_get_file_arr(EXE_ROOT + "data/credits.txt");
 }
 
 function scr_lang_get_noise_credits()
 {
-	var arr = scr_lang_get_file_arr("noisecredits.txt");
+	var arr = scr_lang_get_file_arr(EXE_ROOT + "data/noisecredits.txt");
 	var credits = array_create(0);
 	for (var i = 0; i < array_length(arr); i++)
 	{
@@ -169,9 +175,23 @@ function lang_parse(langstring) // langstring being the entire file in a single 
 {
 	var list = ds_list_create();
 	lang_lexer(list, langstring);
+	
 	var map = lang_exec(list);
 	var lang = ds_map_find_value(map, "lang");
-	ds_map_set(global.lang_map, lang, map);
+	
+	if APPENDABLE_LANGUAGE && global.lang_map[? lang] != undefined
+	{
+		// english-mod.txt
+		var first = ds_map_find_first(map);
+		while first != undefined
+		{
+			global.lang_map[? lang][? first] = map[? first];
+			first = ds_map_find_next(map, first);
+		}
+	}
+	else
+		ds_map_set(global.lang_map, lang, map);
+	
 	ds_list_destroy(list);
 	return lang;
 }
@@ -286,7 +306,6 @@ function lang_exec(token_list) // Man.
 {
 	var map = ds_map_create();
 	var len = ds_list_size(token_list);
-	
 	var pos = 0;
 	while pos < len
 	{

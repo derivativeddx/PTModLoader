@@ -29,8 +29,13 @@ function instance_create_depth_hook(x, y, depth, obj, var_struct = {})
 	}
 	else
 	{
-		if PATCHED_EVENT_ORDER && array_contains(obj_eventorder.order, self[$ "object_index"]) && array_contains(obj_eventorder.order, obj)
-			var_struct._order_buffer = 1;
+		if PATCHED_EVENT_ORDER && instance_exists(obj_eventorder)
+		{
+			// old gamemaker didn't run the step event of a recently created object
+			var o = obj_eventorder, r = o[$ "order"];
+			if r != undefined && array_contains(r, self[$ "object_index"]) && array_contains(r, obj)
+				var_struct._order_buffer = 1;
+		}
 		return instance_create_depth_base(x, y, depth, obj, var_struct);
 	}
 }

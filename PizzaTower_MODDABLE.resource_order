@@ -701,6 +701,7 @@
     {"name":"spr_noise_introtext","order":2,"path":"sprites/spr_noise_introtext/spr_noise_introtext.yy",},
     {"name":"spr_noiseunlocked_bg","order":1,"path":"sprites/spr_noiseunlocked_bg/spr_noiseunlocked_bg.yy",},
     {"name":"spr_noiseunlocked_text","order":9,"path":"sprites/spr_noiseunlocked_text/spr_noiseunlocked_text.yy",},
+    {"name":"spr_optionsBG_mods","order":4,"path":"sprites/spr_optionsBG_mods/spr_optionsBG_mods.yy",},
     {"name":"spr_pauseicon_mods","order":2,"path":"sprites/spr_pauseicon_mods/spr_pauseicon_mods.yy",},
     {"name":"spr_rank_confused_text","order":33,"path":"sprites/spr_rank_confused_text/spr_rank_confused_text.yy",},
     {"name":"spr_rank_confused","order":32,"path":"sprites/spr_rank_confused/spr_rank_confused.yy",},

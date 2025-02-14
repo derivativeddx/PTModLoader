@@ -23,6 +23,7 @@ depth = -99;
 scr_init_input();
 slidecount = 0;
 slidebuffer = 0;
+bg_sprite = spr_optionsBG;
 bg_alpha = [1, 0, 0, 0, 0];
 bg_x = 0;
 bg_y = 0;
@@ -31,6 +32,8 @@ lastmenu = 0;
 menu = 0;
 optionselected = 0;
 backbuffer = 0;
+
+base_mod_list_bg_alpha = 0;
 
 pause_icons = array_create(0);
 scr_pauseicon_add(spr_pauseicons, 4);

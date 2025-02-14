@@ -1,0 +1,8 @@
+This requires you to know how to use a computer.
+
+1. Copy the "sound" folder over from your Pizza Tower install
+2. Copy the base game "data.win" file over too
+3. Use DeltaPatcher to patch the "data.win" with the "data.xdelta"
+
+If you encountered issues at any step in this guide, you are retarded.
+Please don't talk to me. Thank you.

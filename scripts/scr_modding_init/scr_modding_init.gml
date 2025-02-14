@@ -71,14 +71,11 @@ function scr_modding_init()
 		}
 	});
 	
-	/*
-	live_variable_add("states*", function() { return states; });
-	live_variable_add("CAMX*", function() { return CAMX; });
-	live_variable_add("CAMY*", function() { return CAMY; });
-	live_variable_add("CAMW*", function() { return CAMW; });
-	live_variable_add("CAMH*", function() { return CAMH; });
-	*/
-	
+	live_variable_add("states*", function() { return scr_states(); });
+	live_variable_add("CAMX*", function() { return camera_get_view_x(view_camera[0]); });
+	live_variable_add("CAMY*", function() { return camera_get_view_y(view_camera[0]); });
+	live_variable_add("CAMW*", function() { return camera_get_view_width(view_camera[0]); });
+	live_variable_add("CAMH*", function() { return camera_get_view_height(view_camera[0]); });
 	live_variable_add("SCREEN_WIDTH*", function() { return SCREEN_WIDTH; });
 	live_variable_add("SCREEN_HEIGHT*", function() { return SCREEN_HEIGHT; });
 	

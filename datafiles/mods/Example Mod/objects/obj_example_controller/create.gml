@@ -6,6 +6,6 @@ depth = -100;
 trace();
 trace("Example object name: ", __OBJECT.name); 	// (obj_example_controller)
 trace("Mod path: ", MOD_PATH); 					// (...\mods\example)
-//trace("states.normal: ", states.normal); 		// (0)
+trace("states.normal: ", states.normal); 		// (0)
 trace("SCREEN_WIDTH: ", SCREEN_WIDTH); 			// (960)
 trace();
